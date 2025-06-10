@@ -3,22 +3,28 @@ package Bank;
 import java.util.*;
 
 abstract class BankAccount {
+	//initializes random variable
 	private static final Random rng = new Random();
+	//has a database of bank accounts
 	private static final Map<Long,BankAccount> accounts = new HashMap<Long,BankAccount>();
-
+	//amount of money in account
 	public double balance;
+	//id of account
 	public  long id;
+	//name of owner of account
 	public String name;
-	public String address;
 	
-	public BankAccount(double amount, String name, String address) {
+	/*
+	 * precondition: requires name != null && amount > 0;
+	 * ensures this.name == name && balance == amount && id == Math.abs(rng.nextLong());
+	 */
+	public BankAccount(double amount, String name) {
 		Objects.requireNonNull(name);
 		if(amount < 0) {
 			throw new IllegalArgumentException();
 		}
 		this.setBalance(amount);
 		this.name = name;
-		this.address = address;
 		boolean idAssigned = false;
 		while (!idAssigned) {
 			this.id = Math.abs(BankAccount.rng.nextLong());
@@ -29,12 +35,12 @@ abstract class BankAccount {
 		}
 	}
 	
-	public long getId() {
+	public /* pure */ long getId() {
 		return id;
 	}
 
 
-	public double getBalance() {
+	public /* pure */ double getBalance() {
 		return balance;
 	}
 
@@ -42,19 +48,23 @@ abstract class BankAccount {
 		this.balance = amount;
 	}
 
-	public String getName() {
+	public /* pure */ String getName() {
 		return name;
 	}
 
 
-	public String getAddress() {
-		return address;
-	}
-	
+	/*
+	 * requires amount > 0
+	 * ensures \result == balance == \old(balance) + amount
+	*/
 	public void deposit(double amount) {
 		this.setBalance(this.balance + amount);
 	}
 	
+	/*
+	 * requires amount > 0
+	 * ensures \result == balance == \old(balance) - amount
+	*/
 	public void withdraw(double amount) {
 		this.setBalance(this.balance - amount);
 	}
@@ -75,7 +85,7 @@ abstract class BankAccount {
 		if (getClass() != obj.getClass())
 			return false;
 		BankAccount other = (BankAccount) obj;
-		return Objects.equals(accounts, other.accounts) && Objects.equals(address, other.address)
+		return Objects.equals(accounts, other.accounts)
 				&& Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance)
 				&& Objects.equals(name, other.name);
 	}

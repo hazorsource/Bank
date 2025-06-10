@@ -1,10 +1,11 @@
 package Bank;
+import java.util.*;
 public class ChequingAccount extends BankAccount{
 	private int transactionCount;
 	private static final double TRANSACTION_FEE = 1.5;
 	private static final int TRANSACTIONS = 4;
-	public ChequingAccount(double balance, String name, String address) {
-		super(balance,name,address);
+	public ChequingAccount(double balance, String name) {
+		super(balance,name);
 	}
 	@Override
 	public void deposit(double amount) {
@@ -58,7 +59,7 @@ public class ChequingAccount extends BankAccount{
 	@Override
 	public String toString() {
 		return "ChequingAccount [transactionCount=" + transactionCount + ", balance=" + balance + ", id=" + id
-				+ ", name=" + name + ", address=" + address + "]";
+				+ ", name=" + name + "]";
 	}
 	
 }
