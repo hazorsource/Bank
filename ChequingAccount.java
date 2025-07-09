@@ -7,6 +7,11 @@ public class ChequingAccount extends BankAccount{
 	public ChequingAccount(double balance, String name) {
 		super(balance,name);
 	}
+	
+	/*
+	 * requires amount > 0
+	 * ensures balance == /old(balance) - amount
+	*/
 	@Override
 	public void deposit(double amount) {
 		// TODO Auto-generated method stub
@@ -16,6 +21,12 @@ public class ChequingAccount extends BankAccount{
 			throw new IllegalArgumentException();
 		}
 	}
+	
+	/*
+	 * requires amount > 0 && amount <= balance
+	 * ensures balance == /old(balance) + amount 
+	 * ensures transactionCount == /old(transactionCount) + 1
+	*/
 	@Override
 	public void withdraw(double amount) {
 		// TODO Auto-generated method stub
@@ -29,6 +40,11 @@ public class ChequingAccount extends BankAccount{
 		}
 		
 	}
+	
+	/*
+	 * requires other != null && amount > 0 && amount < other.getBalance()
+	 * ensures 
+	 */
 	@Override
 	public void transfer(double amount, BankAccount other) {
 		// TODO Auto-generated method stub
@@ -44,6 +60,10 @@ public class ChequingAccount extends BankAccount{
 		}
 	}
 	
+	/*
+	 *ensures transactionCount > TRANSACTIONS => balance == /old(balance) -  (transactionCount - TRANSACTION) * TRANSACTION_FEE
+	 *ensures transactionCount == 0 
+	 **/
 	public void deductTransactions() {
 		if(transactionCount > TRANSACTIONS) {
 			for(int i = 4;i < transactionCount;i--) {
@@ -53,9 +73,12 @@ public class ChequingAccount extends BankAccount{
 		transactionCount = 0;
 	}
 	
-	public final int getTransactionCount() {
+	
+	public final /*pure*/ int getTransactionCount() {
 		return transactionCount;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "ChequingAccount [transactionCount=" + transactionCount + ", balance=" + balance + ", id=" + id

@@ -71,11 +71,17 @@ abstract class BankAccount {
 	
 	public abstract void transfer(double amount, BankAccount other);
 
+	/*
+	 * ensures true
+	 * */
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
+	/*
+	 * esnures /result == false if obj == false && /result == this== obj
+	 * */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
