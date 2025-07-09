@@ -11,7 +11,7 @@ This is a basic banking application with a GUI
 2. Download JavaFx: https://openjfx.io/openjfx-docs/#install-javafx
 3. Clone the repository
    ***
-    git clone [http](https://github.com/hazorsource/Bank.git)
+    git clone [https://github.com/hazorsource/Bank.git](https://github.com/hazorsource/Bank.git)
    ***
 4. import the repository into Eclispe
 
